@@ -1,0 +1,17 @@
+package com.example.batch;
+
+import lombok.extern.slf4j.Slf4j;
+
+public interface EmailProcvider {
+
+    void send(String emailAddress, String title, String body);
+
+    @Slf4j
+    class Fake implements EmailProcvider {
+
+        @Override
+        public void send(String emailAddress, String title, String body) {
+            log.info("{} email 전송 완료! {}: {}", emailAddress, title, body);
+        }
+    }
+}
