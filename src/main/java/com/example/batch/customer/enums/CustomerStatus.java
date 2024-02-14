@@ -1,6 +1,6 @@
 package com.example.batch.customer.enums;
 
-public enum Status {
+public enum CustomerStatus {
 
     NORMAL,
     DORMANT;
