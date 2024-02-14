@@ -1,7 +1,10 @@
 package com.example.batch.customer;
 
-import com.example.batch.customer.enums.Status;
+import com.example.batch.customer.enums.CustomerStatus;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -14,6 +17,8 @@ import java.time.LocalDateTime;
 @ToString
 public class Customer {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String name;
@@ -24,7 +29,7 @@ public class Customer {
 
     private LocalDateTime loginAt;
 
-    private Status status;
+    private CustomerStatus status;
 
     public Customer(String name, String email) {
         this.id = id;
@@ -32,6 +37,10 @@ public class Customer {
         this.email = email;
         this.createAt = LocalDateTime.now();
         this.loginAt = LocalDateTime.now();
-        this.status = Status.NORMAL;
+        this.status = CustomerStatus.NORMAL;
+    }
+
+    public void setLoginAt(LocalDateTime loginAt) {
+        this.loginAt = loginAt;
     }
 }
