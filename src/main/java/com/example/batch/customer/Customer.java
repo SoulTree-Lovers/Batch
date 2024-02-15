@@ -43,4 +43,8 @@ public class Customer {
     public void setLoginAt(LocalDateTime loginAt) {
         this.loginAt = loginAt;
     }
+
+    public void setStatus(CustomerStatus status) {
+        this.status = status;
+    }
 }
