@@ -4,6 +4,7 @@ import com.example.batch.customer.Customer;
 import com.example.batch.customer.CustomerRepository;
 import com.example.batch.customer.enums.CustomerStatus;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,11 @@ class DormantBatchJobTest {
 
     @Autowired
     private DormantBatchJob dormantBatchJob;
+
+    @BeforeEach
+    public void setup() {
+        customerRepository.deleteAll();
+    }
 
     @Test
     @DisplayName("로그인 시간이 1년을 경과한 고객이 세 명이고, 1년 이내 로그인한 고객이 5명이면 3명의 고객이 휴면 전환 대상이다.")
