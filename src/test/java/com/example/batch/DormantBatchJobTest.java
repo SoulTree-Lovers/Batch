@@ -23,7 +23,7 @@ class DormantBatchJobTest {
     private CustomerRepository customerRepository;
 
     @Autowired
-    private DormantBatchJob dormantBatchJob;
+    private Job job;
 
     @BeforeEach
     public void setup() {
@@ -47,7 +47,7 @@ class DormantBatchJobTest {
         saveCustomer(364L);
 
         // when
-        final JobExecution result = dormantBatchJob.execute();
+        final JobExecution result = job.execute();
 
         // then
         final Long dormantCount = customerRepository.findAll()
@@ -76,7 +76,7 @@ class DormantBatchJobTest {
         saveCustomer(1000L);
 
         // when
-        final JobExecution result = dormantBatchJob.execute();
+        final JobExecution result = job.execute();
 
         // then
         final Long dormantCount = customerRepository.findAll()
@@ -93,7 +93,7 @@ class DormantBatchJobTest {
     @DisplayName("고객이 없는 경우에도 배치 프로그램은 정상 작동 해야한다.")
     void test3() {
         // when
-        final JobExecution result = dormantBatchJob.execute();
+        final JobExecution result = job.execute();
 
         // then
         final Long dormantCount = customerRepository.findAll()
@@ -110,10 +110,10 @@ class DormantBatchJobTest {
     @DisplayName("배치가 실패하면 BatchStatus는 FAILED를 반환해야 한다.")
     void test4() {
         // given
-        final DormantBatchJob dormantBatchJob = new DormantBatchJob(null);
+        final Job job = new Job(null);
 
         // when
-        final JobExecution result = dormantBatchJob.execute();
+        final JobExecution result = job.execute();
 
         // then
         Assertions.assertThat(result.getBatchStatus()).isEqualTo(BatchStatus.FAILED);

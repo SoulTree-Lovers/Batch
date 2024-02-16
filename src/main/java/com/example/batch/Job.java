@@ -14,13 +14,13 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Component
-public class DormantBatchJob {
+public class Job {
 
     private final CustomerRepository customerRepository;
 
     private final EmailProvider emailProvider;
 
-    public DormantBatchJob(CustomerRepository customerRepository) {
+    public Job(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
         this.emailProvider = new EmailProvider.Fake();
     }
@@ -39,7 +39,7 @@ public class DormantBatchJob {
 
         int pageNo = 0;
 
-        try {
+        try { // 비즈니스 로직
             while (true) {
                 // 1. 유저 조회
                 final PageRequest pageRequest = PageRequest.of(pageNo, 1, Sort.by("id").ascending()); // 한 페이지씩 가져오기
@@ -78,7 +78,7 @@ public class DormantBatchJob {
         }
 
         jobExecution.setEndTime(LocalDateTime.now());
-        emailProvider.send(
+        emailProvider.send( // 비즈니스 로직
                 "admin@naver.com",
                 "배치 완료 알림",
                 "DormantBatchJob이 실행되었습니다. status:" + jobExecution.getBatchStatus()
