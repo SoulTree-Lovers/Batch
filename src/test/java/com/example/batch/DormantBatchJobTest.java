@@ -1,15 +1,18 @@
 package com.example.batch;
 
+import com.example.batch.batches.TaskletJob;
 import com.example.batch.customer.Customer;
 import com.example.batch.customer.CustomerRepository;
-import com.example.batch.customer.batches.BatchStatus;
-import com.example.batch.customer.batches.JobExecution;
+import com.example.batch.batches.BatchStatus;
+import com.example.batch.batches.Job;
+import com.example.batch.batches.JobExecution;
 import com.example.batch.customer.enums.CustomerStatus;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
@@ -22,6 +25,7 @@ class DormantBatchJobTest {
     @Autowired
     private CustomerRepository customerRepository;
 
+    @Qualifier("dormantBatchJob")
     @Autowired
     private Job job;
 
@@ -110,7 +114,7 @@ class DormantBatchJobTest {
     @DisplayName("배치가 실패하면 BatchStatus는 FAILED를 반환해야 한다.")
     void test4() {
         // given
-        final Job job = new Job(null);
+        final Job job = new TaskletJob(null);
 
         // when
         final JobExecution result = job.execute();
@@ -119,6 +123,25 @@ class DormantBatchJobTest {
         Assertions.assertThat(result.getBatchStatus()).isEqualTo(BatchStatus.FAILED);
 
     }
+
+    @Test
+    @DisplayName("358일 전에 로그인한 고객에게 휴면계정 전환 예정자라고 이메일을 발송해야한다.")
+    void test5() {
+        // given
+        saveCustomer(358L); // 휴면계정 전환 예정자
+        saveCustomer(358L); // 휴면계정 전환 예정자
+        saveCustomer(358L); // 휴면계정 전환 예정자
+
+        saveCustomer(30L);
+        saveCustomer(30L);
+
+        // when
+        // then
+        job.execute(); // 3명에게만 이메일 발송했는지 로그로 확인
+
+    }
+
+
 
     private void saveCustomer(Long loginMinusDays) {
         final String uuid = UUID.randomUUID().toString(); // 랜덤 아이디 생성
