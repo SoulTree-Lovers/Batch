@@ -1,4 +1,4 @@
-package com.example.batch.customer.batches;
+package com.example.batch.batches;
 
 import lombok.Getter;
 import lombok.ToString;

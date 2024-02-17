@@ -1,6 +1,5 @@
-package com.example.batch.customer.batches;
+package com.example.batch.batches;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
