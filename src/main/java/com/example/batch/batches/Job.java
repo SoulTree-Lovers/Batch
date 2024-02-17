@@ -1,5 +1,7 @@
 package com.example.batch.batches;
 
+import com.example.batch.EmailProvider;
+import com.example.batch.customer.CustomerRepository;
 import lombok.Builder;
 import org.springframework.stereotype.Component;
 
@@ -15,9 +17,28 @@ public class Job {
         this(tasklet, null);
     }
 
-    public Job(CustomerRepository customerRepository) {
-        this.customerRepository = customerRepository;
-        this.emailProvider = new EmailProvider.Fake();
+    @Builder
+    public Job(ItemReader<?> itemReader, ItemProcessor<?, ?> itemProcessor, ItemWriter<?> itemWriter, JobExecutionListener jobExecutionListener) {
+        this(new SimpleTasklet(itemReader, itemProcessor, itemWriter), jobExecutionListener);
+    }
+
+    public Job(Tasklet tasklet, JobExecutionListener jobExecutionListener) {
+        this.tasklet = tasklet;
+        if (jobExecutionListener == null) {
+            this.jobExecutionListener = new JobExecutionListener() {
+                @Override
+                public void beforeJob(JobExecution jobExecution) {
+
+                }
+
+                @Override
+                public void afterJob(JobExecution jobExecution) {
+
+                }
+            };
+        } else {
+            this.jobExecutionListener = jobExecutionListener;
+        }
     }
 
     public JobExecution execute() {
