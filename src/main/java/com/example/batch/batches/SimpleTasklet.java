@@ -1,19 +1,6 @@
 package com.example.batch.batches;
 
-import com.example.batch.batches.ItemProcessor;
-import com.example.batch.batches.ItemReader;
-import com.example.batch.batches.ItemWriter;
-import com.example.batch.batches.Tasklet;
-import com.example.batch.customer.Customer;
-import com.example.batch.customer.enums.CustomerStatus;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
-
-@Component
 public class SimpleTasklet<I, O> implements Tasklet {
 
     private final ItemReader<I> itemReader;
