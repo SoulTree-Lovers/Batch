@@ -32,7 +32,22 @@ public class JobConfiguration {
     @Bean
     public Step step(JobRepository jobRepository, PlatformTransactionManager platformTransactionManager) {
 
-        /*final Tasklet tasklet = new Tasklet() {
+        return new StepBuilder("step", jobRepository)
+                .tasklet((contribution, chunkContext) -> {
+
+                    log.info("step 실행");
+                    return RepeatStatus.FINISHED;
+
+                }, platformTransactionManager)
+                .allowStartIfComplete(true) // 성공시에도 재시작 허용
+                .startLimit(5)
+                .build();
+    }
+
+    /*@Bean
+    public Step step(JobRepository jobRepository, PlatformTransactionManager platformTransactionManager) {
+
+        *//*final Tasklet tasklet = new Tasklet() {
             private int count = 0;
 
             @Override
@@ -47,7 +62,7 @@ public class JobConfiguration {
                 log.info("Tasklet Continuable {}", count);
                 return RepeatStatus.CONTINUABLE;
             }
-        };*/
+        };*//*
 
         final ItemReader<Integer> itemReader = new ItemReader<>() {
 
@@ -72,5 +87,5 @@ public class JobConfiguration {
 //                .processor()
                 .writer(read -> {})
                 .build();
-    }
+    }*/
 }
