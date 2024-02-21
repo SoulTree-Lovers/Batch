@@ -1,0 +1,7 @@
+[
+ {"id":null,"name":"승민","age":"25","region":"서울","phone":"010-1111-1111"},
+ {"id":null,"name":"진호","age":"25","region":"서울","phone":"010-1111-1112"},
+ {"id":null,"name":"동현","age":"25","region":"서울","phone":"010-1111-1113"},
+ {"id":null,"name":"준용","age":"25","region":"서울","phone":"010-1111-1114"},
+ {"id":null,"name":"동혁","age":"25","region":"서울","phone":"010-1111-1115"}
+]
