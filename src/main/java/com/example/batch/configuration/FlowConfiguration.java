@@ -1,4 +1,4 @@
-package com.example.batch;
+package com.example.batch.configuration;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
 @Slf4j
-@Configuration
+//@Configuration
 public class FlowConfiguration {
 
     @Bean

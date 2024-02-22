@@ -1,5 +1,6 @@
-package com.example.batch;
+package com.example.batch.configuration;
 
+import com.example.batch.utils.ColumnRangePartitioner;
 import com.example.batch.model.User;
 import jakarta.persistence.EntityManagerFactory;
 import lombok.extern.slf4j.Slf4j;

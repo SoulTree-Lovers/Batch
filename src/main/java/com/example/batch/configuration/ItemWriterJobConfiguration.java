@@ -1,4 +1,4 @@
-package com.example.batch;
+package com.example.batch.configuration;
 
 import com.example.batch.model.User;
 import jakarta.persistence.EntityManagerFactory;
@@ -29,7 +29,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
 
-@Configuration
+//@Configuration
 public class ItemWriterJobConfiguration {
 
     @Bean

@@ -1,4 +1,4 @@
-package com.example.batch;
+package com.example.batch.utils;
 
 import org.springframework.batch.core.partition.support.Partitioner;
 import org.springframework.batch.item.ExecutionContext;
